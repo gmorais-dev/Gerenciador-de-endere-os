@@ -16,18 +16,21 @@ import java.util.Optional;
         private UserRepository userRepository;
 
         @GetMapping("/{id}")
+
         public ResponseEntity<User> getUserById(@PathVariable Long id) {
             Optional<User> user = userRepository.findById(id);
             return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
         }
 
-        @PostMapping
+        @PostMapping("/Publicar")
         public User createUser(@RequestBody UserDTO userDTO) {
             User usuario = new User();
             BeanUtils.copyProperties(userDTO, usuario);
-
             return userRepository.save(usuario);
         }
+
+
+
     }
 
 
